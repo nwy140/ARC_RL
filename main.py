@@ -6,8 +6,12 @@ import random
 # ─────────────────────────────────────────────────────────────────────────────
 # Headless Rendering Setup
 # ─────────────────────────────────────────────────────────────────────────────
-if "DISPLAY" not in os.environ and "WAYLAND_DISPLAY" not in os.environ:
-    os.environ["MUJOCO_GL"] = "egl" 
+import sys
+
+if sys.platform == "win32":
+    os.environ["MUJOCO_GL"] = "glfw"
+elif "DISPLAY" not in os.environ and "WAYLAND_DISPLAY" not in os.environ:
+    os.environ.setdefault("MUJOCO_GL", "egl") 
 
 import gymnasium as gym
 import h5py
